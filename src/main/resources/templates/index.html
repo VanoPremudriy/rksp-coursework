@@ -95,6 +95,7 @@
 
         <div class="content-middle" style="margin-top:100px;margin-bottom:50px;">
             <span class="left">Делитесь эмоциями с друзьями!</span>
+            <span th:text="${session.get('test')}"></span>
             <button id="GO" onclick="window.location.href = '/GenrePage';">
                 <nav class="Fontgraund">Начать знакомство</nav>
             </button>

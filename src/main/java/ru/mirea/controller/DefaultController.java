@@ -3,24 +3,20 @@ package ru.mirea.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.mirea.entity.*;
 import ru.mirea.repository.*;
 import ru.mirea.services.BandService;
 import ru.mirea.services.GenreService;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -141,12 +137,14 @@ public class DefaultController {
     }
 
     @GetMapping("/index")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         ArrayList<Genre> genres = (ArrayList<Genre>) genreRepo.findAll();
         model.addAttribute("that_genres", genres);
         model.addAttribute("user", user);
+        session.setAttribute("test", 1);
+       // model.addAttribute("ses", session.getAttribute("test"));
         return "/index_v2";
     }
 
