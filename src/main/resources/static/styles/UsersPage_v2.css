@@ -1,0 +1,14 @@
+BODY {
+    background: url("../back2.jpg");
+}
+
+.nav-link {
+    font-size: 20px;
+    background: #ffffff;
+    margin-right: 20px;
+}
+
+.nav-link:hover {
+    color: #000000;
+    background: rgb(158, 105, 174)
+}
