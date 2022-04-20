@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8" />
+    <title>Мир моей музыки</title>
+    <!-- Обязательные метатеги -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/styles/UsersPage_v2.css" />
+    <link rel="stylesheet" href="../static/styles/Playlist_v2.css" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" style="background: url('../static/background.jpg'); height:100px;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="margin-left:10px;"><img width="70" height="70" src="https://sun9-26.userapi.com/impg/FJOSfdU2vN0jr19DqZGEUTRajtPFmZMNrlBjNA/VrYgGY-dNMM.jpg?size=489x473&quality=96&sign=ff7a93a6d8c6a7f0fd83de6b304c74aa&type=album" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div style="z-index:1;" class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/index">Главная страница</a>
+                <a class="nav-link" href="/GenrePage">Жанры</a>
+                <a sec:authorize="isAuthenticated()" class="nav-link" href="/UsersPage">Пользователи</a>
+                <a sec:authorize="isAuthenticated()" class="nav-link" href="/Profile">Профиль</a>
+                <a sec:authorize="isAuthenticated()" class="nav-link" href="/logout">Выход</a>
+                <a sec:authorize="isAnonymous()" class="nav-link" href="/AuthorizationPage">Вход</a>
+                <a sec:authorize="isAnonymous()" class="nav-link" href="/RegistrationPage">Регистрация</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="margin-top:200px;">
+    <div class="row">
+        <div class="user col-lg-4 col-md-6 d-flex align-items-center justify-content-center" style="height:150px" th:each="other_user: ${users}" th:if="${!other_user.getUsername().equals(user.getUsername())}">
+            <div>
+                <div>
+                    <img th:src="${other_user.getAvatar()}" width="100" height="100" />
+                </div>
+            </div>
+            <div>
+                <div style="margin-left:10px;" class="username">
+                    <span th:text="${other_user.getUsername()}"></span>
+                </div>
+                <div class="dropdown" style="margin-left:10px;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdowUserButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Действия
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownUserButton">
+                        <li><a th:if="${!user.areTheyFriends(other_user) && !other_user.isHasInvite(user) && !user.isHasInvite(other_user)}" th:href="'/invite_to_friends?id='+ ${other_user.getId()}" class="dropdown-item" href="#">Добавить в друзья</a></li>
+                        <li><a th:href="'OtherProfile?username=' + ${other_user.getUsername()}" class="dropdown-item" href="#">Страница</a></li>
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a th:if="${other_user.isEnabled()}" th:href="'/block_user?id=' + ${other_user.getId()}" class="dropdown-item" href="#">Заблокировать</a></li>
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a th:if="${!other_user.isEnabled()}" th:href="'/unblock_user?id=' + ${other_user.getId()}" class="dropdown-item" href="#">Разблокировать</a></li>
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a th:href="'/delete_user?id=' + ${other_user.getId()}" class="dropdown-item" href="#">Удалить</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div style="height:100px;"></div>
+<div class="container-fluid justify-content" id="player">
+    <div class="d-flex" id="playerRow">
+        <div class="p-2" id="play">
+            <img src="../static/Player/Play.png" onclick='chg()' id="Play" />
+        </div>
+        <div class="p-2 btn-group dropup" id="volume">
+            <button data-bs-toggle="dropdown" data-bs-target="#myRangeTwo" data-bs-auto-close="false" aria-expanded="false">
+                <img src="../static/Player/Volume.png" />
+            </button>
+            <div class="dropdown-menu" id="volumeSlider">
+                <input type="range" min="0" max="100" value="0" class="slider" id="myRangeTwo" onchange="0" oninput="0">
+            </div>
+        </div>
+        <div class="p-2" id="trackSlider">
+            <input style="" type="range" min="1" max="" value="0" class="slider" id="myRange" onchange="0" oninput="0">
+        </div>
+        <div class="p-2" id="playlistDropdown">
+            <div class="btn-group dropup" style="width:100%; height:100%;">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-target="#playlistMenu" data-bs-auto-close="false" aria-expanded="false" style="width:100%; height:100%;">
+                </button>
+                <ul class="dropdown-menu" id="playlistMenu">
+                    <li sec:authorize="isAnonymous()" class="pl-track d-flex">
+                        <div>Только для зарегистрированных пользователей</div>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" th:if="${user.getPlayerSongs().size() == 0}" class="pl-track d-flex">
+                        <div>Тут пока пусто :(</div>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="pl-track d-flex" th:each="track: ${user.getPlayerSongs()}">
+                        <div class="TenImage">
+                            <img src="../static/Player/Play.png" class="Track" />
+                        </div>
+                        <div class="Name">
+                            <span th:text="${track.getBand().getBandName() + ' - ' + track.getSongName()}"></span>
+                        </div>
+                        <a th:href="@{/delete_song_from_player(id=${track.getId()}, url='index')}">
+                            <div class="pl-delete">
+                                <img src="../static/Player/Delete.png" />
+                            </div>
+                        </a>
+                        <audio class="Audio" ontimeupdate="slider.value = audio.currentTime;">
+                            <source th:src="${track.getUrl() + '/'+ track.getSongName().replaceAll(' ', '_') + '.mp3'}" type='audio/ogg; codecs="opus"'>
+                        </audio>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <audio id="Audio">
+            <source src="" type='audio/ogg; codecs="opus"'>
+        </audio>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="Playlist.js"></script>
+</body>
+</html>
