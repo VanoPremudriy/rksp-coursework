@@ -1,6 +1,3 @@
-BODY {
-    background: url("../back2.jpg");
-}
 
 .nav-link {
     font-size: 20px;
@@ -84,7 +81,6 @@ BODY {
     font-style: oblique;
     color: #590f7c;
     border: none;
-    background: #ffffff;
     text-align: center;
     transition: .4s;
 }

@@ -17,6 +17,7 @@ import ru.mirea.entity.Roles;
 import ru.mirea.entity.User;
 import ru.mirea.repository.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +42,8 @@ public class AuthorizationController{
     }
 
     @GetMapping(value = "/AuthorizationPage")
-    public String AuthorizationPage(Model model){
+    public String AuthorizationPage(Model model, HttpSession session){
+        if (session.getAttribute("theme") == null) session.setAttribute("theme", 1);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         model.addAttribute("user",user);
@@ -49,7 +51,8 @@ public class AuthorizationController{
     }
 
     @GetMapping(value = "/RegistrationPage")
-    public String RegistrationPage(Model model){
+    public String RegistrationPage(Model model,HttpSession session){
+        if (session.getAttribute("theme") == null) session.setAttribute("theme", 1);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         if(!model.containsAttribute("new_user")){

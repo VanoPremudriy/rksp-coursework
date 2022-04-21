@@ -27,6 +27,23 @@
                 <a sec:authorize="isAuthenticated()" class="nav-link" href="/logout">Выход</a>
                 <a sec:authorize="isAnonymous()" class="nav-link" href="/AuthorizationPage">Вход</a>
                 <a sec:authorize="isAnonymous()" class="nav-link" href="/RegistrationPage">Регистрация</a>
+                <a class="nav-link" th:href="'/themeChange?url=GenrePages?id=' + ${that_genre.getId()}">&#9680;</a>
+                <style th:if="${session.get('theme') ==1}">
+                    BODY {
+                        background: url("/static/back2.jpg");
+                    }
+                    .Text p,span{
+                        color: black;
+                    }
+                </style>
+                <style th:unless="${session.get('theme') ==1}">
+                    BODY {
+                        background: url("/static/back2_black.jpg");
+                    }
+                    .Text p,span{
+                        color: white;
+                    }
+                </style>
             </div>
         </div>
     </div>

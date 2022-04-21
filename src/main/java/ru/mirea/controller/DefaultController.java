@@ -61,7 +61,8 @@ public class DefaultController {
     BandService bandService = new BandService();
 
     @RequestMapping(value = "/GenrePages")
-    public String AllGenrePages(@RequestParam("id") Long id,Model model){
+    public String AllGenrePages(@RequestParam("id") Long id,Model model, HttpSession session){
+        if (session.getAttribute("theme") == null) session.setAttribute("theme", 1);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         ArrayList<Band> bands = new ArrayList<>();
@@ -92,7 +93,8 @@ public class DefaultController {
     }
 
     @RequestMapping(value = "/BandsPages")
-    public String BandsPages(@RequestParam("id") Long id, Model model){
+    public String BandsPages(@RequestParam("id") Long id, Model model, HttpSession session){
+        if (session.getAttribute("theme") == null) session.setAttribute("theme", 1);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         Band band = bandRepo.getBandById(id);
@@ -115,7 +117,8 @@ public class DefaultController {
     }
 
     @RequestMapping(value = "/GenrePage")
-    public String GenrePage(Model model){
+    public String GenrePage(Model model, HttpSession session){
+        if (session.getAttribute("theme") == null) session.setAttribute("theme", 1);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         ArrayList<Genre> genres = (ArrayList<Genre>) genreRepo.findAll();
@@ -138,18 +141,18 @@ public class DefaultController {
 
     @GetMapping("/index")
     public String index(Model model, HttpSession session) {
+        if (session.getAttribute("theme") == null) session.setAttribute("theme", 1);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         ArrayList<Genre> genres = (ArrayList<Genre>) genreRepo.findAll();
         model.addAttribute("that_genres", genres);
         model.addAttribute("user", user);
-        session.setAttribute("test", 1);
-       // model.addAttribute("ses", session.getAttribute("test"));
         return "/index_v2";
     }
 
     @GetMapping("/Profile")
-    public String Profile(Model model){
+    public String Profile(Model model, HttpSession session){
+        if (session.getAttribute("theme") == null) session.setAttribute("theme", 1);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         ArrayList<Genre> genres = (ArrayList<Genre>) genreRepo.findAll();
@@ -161,7 +164,8 @@ public class DefaultController {
     }
 
     @GetMapping("/EditingProfile")
-    public String EditingProfile(Model model){
+    public String EditingProfile(Model model, HttpSession session){
+        if (session.getAttribute("theme") == null) session.setAttribute("theme", 1);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         ArrayList<Genre> genres = (ArrayList<Genre>) genreRepo.findAll();
@@ -171,7 +175,8 @@ public class DefaultController {
     }
 
     @GetMapping("/OtherProfile")
-    public String otherProfile(@RequestParam("username") String username, Model model){
+    public String otherProfile(@RequestParam("username") String username, Model model, HttpSession session){
+        if (session.getAttribute("theme") == null) session.setAttribute("theme", 1);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         User otherUser = userRepo.getUserByUsername(username);
@@ -183,7 +188,8 @@ public class DefaultController {
     }
 
     @GetMapping(value = "/UsersPage")
-    public String UsersPage(Model model){
+    public String UsersPage(Model model, HttpSession session){
+        if (session.getAttribute("theme") == null) session.setAttribute("theme", 1);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         ArrayList<Genre> genres = (ArrayList<Genre>) genreRepo.findAll();
@@ -192,6 +198,17 @@ public class DefaultController {
         model.addAttribute("users", users);
         model.addAttribute("user", user);
         return "/UsersPage_v2";
+    }
+
+    @GetMapping(value = "/themeChange")
+    public String themeChange(@RequestParam("url") String url, HttpSession session){
+        if (session.getAttribute("theme").equals(1)){
+            session.setAttribute("theme", 0);
+        }
+        else{
+            session.setAttribute("theme", 1);
+        }
+        return "redirect:/" + url;
     }
 
 }
