@@ -1,0 +1,17 @@
+'#' Lines starting with '#' are considered comments.
+
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.mp3
+
+'#' Ignore objects and archives.
+
+*.[oa]
+
+.idea/
+
+.target/
+
+.out/

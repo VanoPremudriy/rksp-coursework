@@ -1,0 +1,79 @@
+BODY {
+    background: url("../back2.jpg");
+}
+
+.nav-link {
+    font-size: 20px;
+    background: #ffffff;
+    margin-right: 20px;
+}
+
+.nav-link:hover {
+    color: #000000;
+    background: rgb(158, 105, 174)
+}
+
+#chat2 .form-control {
+    border-color: transparent;
+}
+
+#chat2 .form-control:focus {
+    border-color: transparent;
+    box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+.chat-button {
+    border: none;
+    background: #ffffff;
+    text-align: center;
+    transition: .4s;
+}
+
+.chat-button:hover {
+    transition: .4s;
+    color: #000000;
+    background: #b422cb;
+}
+
+.chat-button:active {
+    color: #000000;
+    background: #df75ef;
+    transition: .0s;
+}
+
+.chat-button:focus {
+    outline: none;
+}
+
+.card-header {
+    background-color: #c06dce;
+}
+.card-body {
+    position: relative;
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.my-mess {
+    background-color: #f5f6f7;
+    width:100%;
+}
+
+.friend-mess {
+    background-color: #b422cb;
+    width: 100%;
+    text-align:end;
+}
+
+.avatar {
+    width: 45px;
+    height: 100%;
+}

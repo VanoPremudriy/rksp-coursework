@@ -1,0 +1,208 @@
+#player {
+    position: fixed;
+    bottom: 0;
+    border: solid 1px black;
+    height: 50px;
+    width: 100%;
+    padding: 0;
+    z-index:5;
+}
+
+#playerRow {
+    height: 100%
+}
+
+#play {
+    width:50px;
+    height:50px;
+    border:1px solid black;
+}
+#play img {
+    height: 30px;
+    width: 30px
+}
+
+#volume {
+    width: 50px;
+    height: 100%;
+    border: 1px solid black
+}
+
+#volume button {
+    margin-left: -7px;
+    margin-top: -7px;
+    width: 50px;
+    height: 50px;
+    background: none;
+    border: none
+}
+#volume button img {
+    height: 30px;
+    width: 30px;
+}
+
+#volumeSlider {
+    background: none;
+    border: none;
+}
+#trackSlider {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    background:rgba(202, 172, 172, 0.34)
+}
+
+#playlistDropdown {
+    width: 100px;
+    height: 100%;
+    border: 1px solid black;
+    margin-left: auto
+}
+
+
+#playlistMenu {
+    width: 320px;
+    overflow-y: scroll;
+    max-height: 400px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background: #000000;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 20px;
+    background: rgb(158, 105, 174);
+    cursor: pointer;
+}
+
+#myRangeTwo {
+    -webkit-appearance: slider-vertical;
+    height: 150px;
+    width: 60px;
+    margin-top: -150px;
+    margin-left: -7px;
+    position: absolute;
+}
+
+.TenImage {
+    width: 40px;
+    height: 40px;
+    border: solid 1px black;
+    margin-left: 1%;
+    border-style: solid;
+    display: inline-block;
+    border-radius: 100%;
+    border-color: #808080;
+    background-color: #ffffff;
+    transition: 0.1s;
+}
+
+.pl-track {
+    margin-top: 5px;
+}
+
+.pl-track .TenImage img {
+    width: 60%;
+    height: 60%;
+    margin-top: 8px;
+    margin-left: 7px;
+}
+
+.pl-track:hover {
+    transition: .3s;
+    background-color: #df75ef;
+}
+
+.pl-track .TenImage:active {
+    margin-left: 10px;
+    margin-top: 5px;
+    transition: 0.1s;
+    height: 30px;
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.TenImage:active > img {
+    margin-top: -1px;
+    width: 50%;
+    height: 50%;
+    transition: 0.1s;
+}
+.pl-track .Name {
+    width: 220px;
+    margin-top: 7px;
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+.pl-track .Name span {
+    width: 100%;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.pl-track .TenImage:active + .Name {
+    margin-left: 13px;
+    transition: 0.1s;
+}
+
+.TenImage:default {
+    transition: 0.1s;
+}
+
+
+.pl-track:hover > .Name span {
+    transition: 5s;
+    margin-left: -200px;
+}
+
+.pl-delete {
+    width: 40px;
+    height: 40px;
+    border: solid 1px black;
+    margin-left: 1%;
+    border-style: solid;
+    display: inline-block;
+    border-radius: 100%;
+    border-color: #808080;
+    background-color: #ffffff;
+    transition: 0.1s;
+}
+
+.pl-delete:active {
+    margin-left: -5px;
+    margin-top: 5px;
+    transition: 0.1s;
+    height: 30px;
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.pl-delete:active > img {
+    margin-top: -1px;
+    width: 50%;
+    height: 50%;
+    transition: 0.1s;
+}
+
+.pl-delete img {
+    width: 60%;
+    height: 60%;
+    margin-top: 8px;
+    margin-left: 7px;
+}

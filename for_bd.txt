@@ -1511,27 +1511,27 @@ insert into image value (287, 'right', '../static/Bands/ЧО/ЧО7.jpg', 42);
 insert into image value (288, 'right', '../static/Bands/ЧО/ЧО8.jpg', 42);
 
 
-insert into song value (1, 'Ангельская пыль', '1JAo4aOljT-cbFJI-ylebGRyADwTHSiV3', 1);
-insert into song value (2, 'Антихрист', '1q4X0TgTVChk2DrZFGwFnZq6_G5b4eOI-', 1);
-insert into song value (3, 'Бой продолжается', '14owvFYyokgDgWBqvQVqMyulpV14z2zFl', 1);
-insert into song value (4, 'Возьми моё сердце', '1DfvyBemhuveaDoP50GnoDdxPmWazdASR', 1);
-insert into song value (5, 'Герой асфальта', '1oRlRbPIq4j2mPY1LwCFu5buDQNe_MrF2', 1);
-insert into song value (6, 'Дьявольский зной', '1Mzs2tBupmnN2uEWspdYkISzrI_kBxTEE', 1);
-insert into song value (7, 'Мёртвая зона', '1ZGy07zaSTQaj7YDYYxEVsHn57buiGuBI', 1);
-insert into song value (8, 'На службе силы Зла', '1CxMNgp1ZACSxlakwQMbvfb1MFIMQ-AXE', 1);
-insert into song value (9, 'Осколок льда', '1SgtNKy5AJ8Qc4CQOMGG5febXvGOpg66E', 1);
-insert into song value (10, 'Что вы сделали с вашей мечтой', '1NjhuCgdAxxwU-cpFOXeYlTYHtxjdm5Ep', 1);
+insert into song value (1, 'Ангельская пыль', '../static/Bands/Ария', 1);
+insert into song value (2, 'Антихрист', '../static/Bands/Ария', 1);
+insert into song value (3, 'Бой продолжается', '../static/Bands/Арияl', 1);
+insert into song value (4, 'Возьми моё сердце', '../static/Bands/Ария', 1);
+insert into song value (5, 'Герой асфальта', '../static/Bands/Ария', 1);
+insert into song value (6, 'Дьявольский зной', '../static/Bands/Ария', 1);
+insert into song value (7, 'Мёртвая зона', '../static/Bands/Ария', 1);
+insert into song value (8, 'На службе силы Зла', '../static/Bands/Ария', 1);
+insert into song value (9, 'Осколок льда', '../static/Bands/Ария', 1);
+insert into song value (10, 'Что вы сделали с вашей мечтой', '../static/Bands/Ария', 1);
 
-insert into song value (11, 'Crying Game', '1COKLr4SWTnMoV_aWfPnC25Vsa2pPVVvc', 2);
-insert into song value (12, 'Hear Me Now', '1WHVTB5QE8jeDXLuVu_DmwxWsJYEc2r6r', 2);
-insert into song value (13, 'Ill Be There', '1R8cXbbn0KNB3CpkPJAwDUuP9hhesC15F', 2);
-insert into song value (14, 'Killing Me Slowly', '1QKP8xgt_mZa0dYFcljWzHHSH48vfTUg6', 2);
-insert into song value (15, 'Learn To Walk Again', '1fGpG6vG73JDdaOnr_sNkcH_vMuM_iPAc', 2);
-insert into song value (16, 'No Masters', '1r4PrQEXUTWp5TLD3B5n6FZS6M4_lykPS', 2);
-insert into song value (17, 'No Messiah', '1VSvmpfYAwQeMP5bg3e7kHfxCFgVSf-Fs', 2);
-insert into song value (18, 'Officer Down', '1s2yU7JJmJ8w8cRyKLaRQ1cQdJmzQZyi7', 2);
-insert into song value (19, 'Remember When', '1olgzW90rXETUST7LqBgr5QDFa_Bd2LT0', 2);
-insert into song value (20, 'Run for Your Life', '1WZdYPVk_wkWLRTDpDsSMxjMptHXnzfPI', 2);
+insert into song value (11, 'Crying Game', '../static/Bands/BW', 2);
+insert into song value (12, 'Hear Me Now', '../static/Bands/BW', 2);
+insert into song value (13, 'Ill Be There', '../static/Bands/BW', 2);
+insert into song value (14, 'Killing Me Slowly', '../static/Bands/BW', 2);
+insert into song value (15, 'Learn To Walk Again', '../static/Bands/BW', 2);
+insert into song value (16, 'No Masters', '../static/Bands/BW', 2);
+insert into song value (17, 'No Messiah', '../static/Bands/BW', 2);
+insert into song value (18, 'Officer Down', '../static/Bands/BW', 2);
+insert into song value (19, 'Remember When', '../static/Bands/BW', 2);
+insert into song value (20, 'Run for Your Life', '../static/Bands/BW', 2);
 
 insert into song value (21, 'Brutus', '../static/Bands/Benighted', 3);
 insert into song value (22, 'Casual Piece of Meat', '../static/Bands/Benighted', 3);
