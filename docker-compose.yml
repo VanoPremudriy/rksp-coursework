@@ -11,6 +11,8 @@ services:
       MYSQL_DATABASE: coursework_db
       MYSQL_USER: user
       MYSQL_PASSWORD: root
+    volumes:
+      - "./mysql/data.sql:/docker-entrypoint-initdb.d/1.sql"
   mongo_db:
     image: mongo:4.4.3
     restart: always

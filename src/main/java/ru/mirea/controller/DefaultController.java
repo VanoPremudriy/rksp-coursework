@@ -139,7 +139,7 @@ public class DefaultController {
         return "/GenrePage_v2";
     }
 
-    @GetMapping("/index")
+    @GetMapping(value = {"/index", "/"})
     public String index(Model model, HttpSession session) {
         if (session.getAttribute("theme") == null) session.setAttribute("theme", 1);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

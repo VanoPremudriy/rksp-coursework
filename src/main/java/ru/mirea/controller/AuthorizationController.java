@@ -84,7 +84,7 @@ public class AuthorizationController{
             newUser.setRole(Roles.ROLE_USER);
             if (!file.getOriginalFilename().equals("")) {
                 String uuidFile = UUID.randomUUID().toString();
-                String resultFileName = uploadPath + uuidFile + "_" + file.getOriginalFilename();
+                String resultFileName = uploadPath + "/"+ uuidFile + "_" + file.getOriginalFilename();
                 file.transferTo(new File(resultFileName));
                 newUser.setAvatar("/avatars/" + uuidFile + "_" + file.getOriginalFilename());
             } else newUser.setAvatar("/avatars/default_avatar.png");
@@ -99,7 +99,7 @@ public class AuthorizationController{
         User user = userRepo.getUserByUsername(auth.getName());
         if (!file.getOriginalFilename().equals("")) {
             String uuidFile = UUID.randomUUID().toString();
-            String resultFileName = uploadPath + uuidFile + "_" + file.getOriginalFilename();
+            String resultFileName = uploadPath + "/" + uuidFile + "_" + file.getOriginalFilename();
             file.transferTo(new File(resultFileName));
             user.setAvatar("/avatars/" + uuidFile + "_" + file.getOriginalFilename());
         }
@@ -126,7 +126,7 @@ public class AuthorizationController{
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.getUserByUsername(auth.getName());
         model.addAttribute("user", user);
-        return "/403";
+        return "/403_v2";
     }
 
 }

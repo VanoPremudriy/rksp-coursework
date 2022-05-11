@@ -1,26 +1,51 @@
 let _data;
 let _user;
+let _principal_user;
+let _chat_user;
 function connect() {
     var socket = new SockJS('/chat-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function(frame) {
         console.log("connected: " + frame);
-        stompClient.subscribe('/chat_topic/auth_user', function(response) {
+        stompClient.subscribe('/user/chat_topic/auth_user', function(response) {
             _user = response.body;
             stompClient.send("/chat_controller/get_messages");
         });
-        stompClient.subscribe('/chat_topic/messages', function(response) {
+        stompClient.subscribe('/user/chat_topic/messages', function(response) {
             _data = JSON.parse(response.body);
             draw(_data, _user);
-        });
-        stompClient.subscribe('/chat_topic/one_message', function(response) {
-            _data = JSON.parse(response.body);
-            addOneMess(_data, _user);
+            stompClient.disconnect();
+            connect_two();
         });
         stompClient.send("/chat_controller/get_user");
     });
 }
 
+function connect_two(){
+    var socket = new SockJS('/chat-websocket');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function(frame) {
+        console.log("connected: " + frame);
+        stompClient.subscribe('/user/chat_topic/auth_user', function(response) {
+            _user = response.body;
+            stompClient.send("/chat_controller/get_chat_user");
+        });
+        stompClient.subscribe('/user/chat_topic/chat_user', function(response) {
+            _chat_user = response.body;
+            stompClient.send("/chat_controller/get_princ_user");
+        });
+        stompClient.subscribe('/user/chat_topic/princ_user', function(response) {
+            _principal_user = response.body;
+        });
+        stompClient.subscribe('/chat_topic/one_message', function(response) {
+            _data = JSON.parse(response.body);
+            addOneMess(_data, _user, _principal_user);
+        });
+        stompClient.send("/chat_controller/get_user");
+    });
+}
+
+window.onblur = stompClient.disconnect();
 
 function draw(data, user) {
     let $sub = $('.card-body');
@@ -57,10 +82,10 @@ function addMess(){
     stompClient.send("/chat_controller/send", {}, $("#exampleFormControlInput1").val());
 }
 
-function addOneMess(data, user) {
+function addOneMess(data, user, princ) {
     let $sub = $('.card-body');
     let $model;
-    if (data.sender.username.localeCompare(user)){
+    if (data.sender.username.localeCompare(princ)){
         $model = '<span>\n' +
             '                        <div class="d-flex flex-row justify-content-start">\n' +
             '                            <img class="avatar" src=" ' + data.sender.avatar + ' "\n' +
@@ -82,8 +107,11 @@ function addOneMess(data, user) {
             '                        </div>\n' +
             '                        </span>';
     }
-    $sub.append($model)
-    $("#exampleFormControlInput1").val('');
-    $sub.animate({
-        scrollTop: 10000000},100);
+
+        $sub.append($model)
+        $("#exampleFormControlInput1").val('');
+        $sub.animate({
+            scrollTop: 10000000
+        }, 100);
+
 }

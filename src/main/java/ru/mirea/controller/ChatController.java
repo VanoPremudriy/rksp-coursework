@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,7 @@ import ru.mirea.entity.Message;
 import ru.mirea.entity.User;
 import ru.mirea.repository.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -69,7 +71,7 @@ public class ChatController {
 
     @Async
     @MessageMapping("/get_messages")
-    @SendTo("/chat_topic/messages")
+    @SendToUser("/chat_topic/messages")
     public ArrayList<Message> getMessages(){
         User user = userRepo.getUserByUsername(authNow.getName());
         ArrayList<Message> userNowMessages = (ArrayList<Message>) messageRepo.findAllBySenderAndRecipient(user, chatUserNow);
@@ -88,22 +90,47 @@ public class ChatController {
 
     @Async
     @MessageMapping("/get_user")
-    @SendTo("/chat_topic/auth_user")
+    @SendToUser("/chat_topic/auth_user")
     public String getAuthUser(){
          return authNow.getName();
     }
 
     @Async
+    @MessageMapping("/get_chat_user")
+    @SendToUser("/chat_topic/chat_user")
+    public String getChatUser(){
+        return chatUserNow.getUsername();
+    }
+
+    @Async
+    @MessageMapping("/get_princ_user")
+    @SendToUser("/chat_topic/princ_user")
+    public String getPrincUser(Principal principal){
+        return principal.getName();
+    }
+
+    @Async
     @MessageMapping("/send")
     @SendTo("/chat_topic/one_message")
-    public Message sendMess(String mess)
+    public Message sendMess(String mess, Principal principal)
     {
-        System.out.println("yes");
-        User user = userRepo.getUserByUsername(authNow.getName());
+        System.out.println(principal.getName() + " " + authNow.getName() + " " + chatUserNow.getUsername());
+        User user;
+        User user2;
+        if (!authNow.getName().equals(principal.getName()))
+        {
+            user = userRepo.getUserByUsername(principal.getName());
+            user2 = userRepo.getUserByUsername(authNow.getName());
+        }
+        else {
+            user = userRepo.getUserByUsername(authNow.getName());
+            user2 = userRepo.getUserByUsername(chatUserNow.getUsername());
+        }
         AtomicInteger i = new AtomicInteger();
         messageRepo.findAll().forEach(message -> i.getAndIncrement());
-        Message newMess = new Message((long) i.get()+1, mess , user, chatUserNow);
+        Message newMess = new Message((long) i.get()+1, mess , user, user2);
         messageRepo.save(newMess);
         return newMess;
     }
+
 }
